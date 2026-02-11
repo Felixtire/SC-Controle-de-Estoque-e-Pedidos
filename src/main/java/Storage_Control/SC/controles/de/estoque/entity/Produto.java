@@ -19,14 +19,14 @@ public class Produto {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date data;
-    private Status status;
     private List<ItemPedido> itens;
     private BigDecimal valorTotal;
+    private Boolean statusProduto;
 
 
-    public Produto(Date data, Status status, List<ItemPedido> itens, BigDecimal valorTotal) {
+    public Produto(Date data, boolean statusProduto, List<ItemPedido> itens, BigDecimal valorTotal) {
         this.data = data;
-        this.status = status;
+        this.statusProduto = statusProduto;
         this.itens = itens;
         this.valorTotal = valorTotal;
     }

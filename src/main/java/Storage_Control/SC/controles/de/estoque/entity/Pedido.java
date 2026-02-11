@@ -24,13 +24,12 @@ public class Pedido {
     private String nome;
     private BigDecimal preco;
     private Integer estoque;
-    private Bootstrap ativo;
+    private StatusPedido status;
 
-    public Pedido(Long id, String nome, BigDecimal preco, Integer estoque, Bootstrap ativo) {
+    public Pedido(Long id, String nome, BigDecimal preco, Integer estoque) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
         this.estoque = estoque;
-        this.ativo = ativo;
     }
 }
