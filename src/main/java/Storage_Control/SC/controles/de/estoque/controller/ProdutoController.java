@@ -1,9 +1,9 @@
 package Storage_Control.SC.controles.de.estoque.controller;
 
-import Storage_Control.SC.controles.de.estoque.dto.DadosAtualizarProduto;
-import Storage_Control.SC.controles.de.estoque.dto.DadosAtualizarProdutoCompleto;
-import Storage_Control.SC.controles.de.estoque.dto.DadosCadastroProduto;
-import Storage_Control.SC.controles.de.estoque.dto.ProdutosListadosDto;
+import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosAtualizarProduto;
+import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosAtualizarProdutoCompleto;
+import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosCadastroProduto;
+import Storage_Control.SC.controles.de.estoque.dto.saida.ProdutosListadosDto;
 import Storage_Control.SC.controles.de.estoque.service.ProdutoService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;

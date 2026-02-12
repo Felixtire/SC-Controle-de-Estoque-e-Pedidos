@@ -1,9 +1,9 @@
 package Storage_Control.SC.controles.de.estoque.service;
 
-import Storage_Control.SC.controles.de.estoque.dto.DadosAtualizarProduto;
-import Storage_Control.SC.controles.de.estoque.dto.DadosAtualizarProdutoCompleto;
-import Storage_Control.SC.controles.de.estoque.dto.DadosCadastroProduto;
-import Storage_Control.SC.controles.de.estoque.dto.ProdutosListadosDto;
+import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosAtualizarProduto;
+import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosAtualizarProdutoCompleto;
+import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosCadastroProduto;
+import Storage_Control.SC.controles.de.estoque.dto.saida.ProdutosListadosDto;
 import Storage_Control.SC.controles.de.estoque.entity.produto.Produto;
 import Storage_Control.SC.controles.de.estoque.entity.produto.validators.ProdutoValidations;
 import Storage_Control.SC.controles.de.estoque.repository.ProdutoRepository;
@@ -31,7 +31,7 @@ public class ProdutoService {
     public Produto cadastrarProduto(DadosCadastroProduto dados) {
         Produto produto = new Produto(dados);
 
-        validations.stream().map(v -> v.validarProtuto(produto)).toList();
+      validations.forEach(v-> v.validarProtuto(produto));
 
 
         return produtoRepository.save(produto);

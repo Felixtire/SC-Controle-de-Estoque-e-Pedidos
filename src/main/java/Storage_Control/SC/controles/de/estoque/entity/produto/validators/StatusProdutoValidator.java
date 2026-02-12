@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 public class StatusProdutoValidator implements ProdutoValidations {
 
     @Override
-    public String validarProtuto(Produto produto) {
+    public void validarProtuto(Produto produto) {
         if (produto.getStatusProduto()== StatusProduto.INATIVO) {
-            return "Produto inativo";// lançar uma exception personalizada
+            throw new IllegalArgumentException("Produto inativo") ;// lançar uma exception personalizada
         }
-        return null;
+
 
     }
 }

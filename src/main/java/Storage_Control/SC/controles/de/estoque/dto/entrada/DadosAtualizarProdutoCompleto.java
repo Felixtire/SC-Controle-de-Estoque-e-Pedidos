@@ -1,4 +1,4 @@
-package Storage_Control.SC.controles.de.estoque.dto;
+package Storage_Control.SC.controles.de.estoque.dto.entrada;
 
 import Storage_Control.SC.controles.de.estoque.entity.StatusProduto;
 import jakarta.validation.constraints.NotBlank;

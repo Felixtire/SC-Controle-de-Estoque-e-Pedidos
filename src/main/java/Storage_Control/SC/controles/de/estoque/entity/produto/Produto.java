@@ -1,8 +1,7 @@
 package Storage_Control.SC.controles.de.estoque.entity.produto;
 
-import Storage_Control.SC.controles.de.estoque.dto.DadosCadastroProduto;
+import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosCadastroProduto;
 import Storage_Control.SC.controles.de.estoque.entity.StatusProduto;
-import Storage_Control.SC.controles.de.estoque.entity.produto.validators.StatusProdutoValidator;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

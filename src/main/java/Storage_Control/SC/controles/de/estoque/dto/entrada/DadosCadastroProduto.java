@@ -1,11 +1,10 @@
-package Storage_Control.SC.controles.de.estoque.dto;
+package Storage_Control.SC.controles.de.estoque.dto.entrada;
 
 import Storage_Control.SC.controles.de.estoque.entity.StatusProduto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public record DadosCadastroProduto(
 
