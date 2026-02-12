@@ -1,15 +1,18 @@
 package Storage_Control.SC.controles.de.estoque.controller;
 
+import Storage_Control.SC.controles.de.estoque.dto.DadosAtualizarProduto;
 import Storage_Control.SC.controles.de.estoque.dto.DadosCadastroProduto;
+import Storage_Control.SC.controles.de.estoque.dto.ProdutosListadosDto;
 import Storage_Control.SC.controles.de.estoque.service.ProdutoService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/produtos")
@@ -26,12 +29,22 @@ public class ProdutoController {
         return ResponseEntity.ok().body(produto);
     }
 
+    @GetMapping
+    public ResponseEntity<Page<ProdutosListadosDto>> listarProdutos( @PageableDefault(
+            page = 0,
+            size = 10,
+            sort = "nome",
+            direction = Sort.Direction.ASC
+    )Pageable pageable ){
+        var page = produtoService.listarProdutos(pageable);
+        return ResponseEntity.ok(page);
+    }
 
 
-//     public ResponseEntity atualizarProduto(@RequestBody @Valid DadosAtualizarProduto dados){
-//        var produto = produtoService.atualizar(dados);
-//        return ResponseEntity.ok().body(produto);
-//    }
+     public ResponseEntity atualizarProduto(@RequestBody DadosAtualizarProduto dados){
+        var produto = produtoService.atualizar(dados);
+        return ResponseEntity.ok().body(produto);
+    }
 
 
 

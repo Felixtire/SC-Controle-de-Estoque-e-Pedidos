@@ -1,11 +1,14 @@
 package Storage_Control.SC.controles.de.estoque.service;
 
 import Storage_Control.SC.controles.de.estoque.dto.DadosCadastroProduto;
+import Storage_Control.SC.controles.de.estoque.dto.ProdutosListadosDto;
 import Storage_Control.SC.controles.de.estoque.entity.produto.Produto;
 import Storage_Control.SC.controles.de.estoque.entity.produto.validators.ProdutoValidations;
 import Storage_Control.SC.controles.de.estoque.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,4 +34,10 @@ public class ProdutoService {
     }
 
 
+    public Page<ProdutosListadosDto> listarProdutos(Pageable pageable) {
+       return produtoRepository.findAll(pageable)
+               .map(ProdutosListadosDto::new);
+                
+
+    }
 }
