@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/produtos")
@@ -24,9 +25,12 @@ public class ProdutoController {
 
 
     @PostMapping
-    public ResponseEntity cadastrarProduto(@RequestBody @Valid DadosCadastroProduto dados) {
+    public ResponseEntity cadastrarProduto(@RequestBody @Valid DadosCadastroProduto dados, UriComponentsBuilder uriBuilder) {
         var produto = produtoService.cadastrarProduto(dados);
-        return ResponseEntity.ok().body(produto);
+
+        var uri = uriBuilder.path("/produtos/{id}").buildAndExpand(produto.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(produto);
     }
 
     @GetMapping
@@ -38,6 +42,12 @@ public class ProdutoController {
     ) Pageable pageable) {
         var page = produtoService.listarProdutos(pageable);
         return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProdutosListadosDto> listarPorId(@PathVariable Long id){
+        var produto = produtoService.listarPorId(id);
+        return ResponseEntity.ok(produto);
     }
 
     @PatchMapping

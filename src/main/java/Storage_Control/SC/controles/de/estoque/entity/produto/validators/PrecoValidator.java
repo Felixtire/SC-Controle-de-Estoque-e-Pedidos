@@ -1,6 +1,7 @@
 package Storage_Control.SC.controles.de.estoque.entity.produto.validators;
 
 import Storage_Control.SC.controles.de.estoque.entity.produto.Produto;
+import Storage_Control.SC.controles.de.estoque.exception.ProdutoException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ public class PrecoValidator implements ProdutoValidations
     public void validarProtuto(Produto produto) {
 
         if (produto.getPreco().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException( "O preço do produto deve ser maior que zero."); //lancar exceção personalizada
+            throw new ProdutoException( "O preço do produto deve ser maior que zero."); //lancar exceção personalizada
         }
 
     }

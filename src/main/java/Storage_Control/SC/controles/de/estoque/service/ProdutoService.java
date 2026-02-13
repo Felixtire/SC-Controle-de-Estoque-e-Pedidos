@@ -101,4 +101,17 @@ public class ProdutoService {
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
         produtoRepository.deleteById(produto.getId());
     }
+
+    public ProdutosListadosDto listarPorId(Long id) {
+
+        var produto =  produtoRepository.findById(id);
+
+        return produto
+                .stream()
+                .map(ProdutosListadosDto :: new)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+
+    }
 }
