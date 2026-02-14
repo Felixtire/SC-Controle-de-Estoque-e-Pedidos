@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.jpa.boot.spi.Bootstrap;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ import java.util.List;
 @Entity(name = "pedido")
 @Table(name = "pedidos")
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Pedido {
@@ -23,8 +25,10 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private BigDecimal valorTotal;
+
     private LocalDateTime dataPedido;
 
     @Enumerated(EnumType.STRING)
@@ -33,11 +37,5 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens;
 
-    public Pedido(Long id, String nome, BigDecimal preco, Integer estoque, LocalDateTime dataPedido, StatusPedido status, BigDecimal valorTotal, List<ItemPedido> itens) {
-        this.id = id;
-        this.valorTotal = valorTotal;
-        this.itens = itens;
-        this.dataPedido = dataPedido;
-        this.status = status;
     }
-}
+
