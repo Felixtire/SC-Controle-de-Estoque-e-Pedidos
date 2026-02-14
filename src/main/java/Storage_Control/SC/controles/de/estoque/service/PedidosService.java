@@ -6,6 +6,7 @@ import Storage_Control.SC.controles.de.estoque.entity.ItemPedido;
 import Storage_Control.SC.controles.de.estoque.entity.Pedido;
 import Storage_Control.SC.controles.de.estoque.entity.StatusPedido;
 import Storage_Control.SC.controles.de.estoque.entity.produto.Produto;
+import Storage_Control.SC.controles.de.estoque.entity.produto.validators.pedidos.PedidosValidations;
 import Storage_Control.SC.controles.de.estoque.repository.ItemPedidoRepository;
 import Storage_Control.SC.controles.de.estoque.repository.PedidoRepository;
 import Storage_Control.SC.controles.de.estoque.repository.ProdutoRepository;
@@ -29,6 +30,8 @@ public class PedidosService {
 
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
+    @Autowired
+    private List<PedidosValidations> validations;
 
     @Transactional
     public Pedido cadastrarPedido(CarrinhoDeCompras carrinho) {
@@ -57,7 +60,10 @@ public class PedidosService {
             itens.add(item);
             BigDecimal valorTotalItem = produto.getPreco().multiply(BigDecimal.valueOf(dto.quantidade()));
 
-          totalPedido = totalPedido.add(valorTotalItem);;
+          totalPedido = totalPedido.add(valorTotalItem);
+
+          validations.forEach(v-> v.validarPedido(item));
+
 
 
         }

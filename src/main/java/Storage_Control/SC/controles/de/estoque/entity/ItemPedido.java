@@ -1,6 +1,8 @@
 package Storage_Control.SC.controles.de.estoque.entity;
 
+import Storage_Control.SC.controles.de.estoque.dto.entrada.ItemProdutoDto;
 import Storage_Control.SC.controles.de.estoque.entity.produto.Produto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity(name = "itens")
 @Table(name = "item_pedido")
@@ -23,6 +26,7 @@ public class ItemPedido {
 
     @ManyToOne
     @JoinColumn(name = "pedido_id")
+    @JsonIgnore
     private Pedido pedido;
 
     @Column(nullable = false)

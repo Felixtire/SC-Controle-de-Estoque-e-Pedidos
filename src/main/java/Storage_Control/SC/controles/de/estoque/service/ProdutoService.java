@@ -5,7 +5,7 @@ import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosAtualizarProduto
 import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosCadastroProduto;
 import Storage_Control.SC.controles.de.estoque.dto.saida.ProdutosListadosDto;
 import Storage_Control.SC.controles.de.estoque.entity.produto.Produto;
-import Storage_Control.SC.controles.de.estoque.entity.produto.validators.ProdutoValidations;
+import Storage_Control.SC.controles.de.estoque.entity.produto.validators.produtos.ProdutoValidations;
 import Storage_Control.SC.controles.de.estoque.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

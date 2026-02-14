@@ -1,6 +1,7 @@
 package Storage_Control.SC.controles.de.estoque.entity.produto;
 
 import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosCadastroProduto;
+import Storage_Control.SC.controles.de.estoque.dto.entrada.ItemProdutoDto;
 import Storage_Control.SC.controles.de.estoque.entity.StatusProduto;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -42,4 +43,7 @@ public class Produto {
         this.estoque= dados.estoque();
         this.statusProduto = dados.statusProduto();
     }
+
+
+
 }

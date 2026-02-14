@@ -1,4 +1,4 @@
-package Storage_Control.SC.controles.de.estoque.entity.produto.validators;
+package Storage_Control.SC.controles.de.estoque.entity.produto.validators.produtos;
 
 import Storage_Control.SC.controles.de.estoque.entity.produto.Produto;
 import Storage_Control.SC.controles.de.estoque.exception.ProdutoException;
