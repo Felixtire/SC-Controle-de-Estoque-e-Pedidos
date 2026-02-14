@@ -12,4 +12,9 @@ public class TradadorDeErros {
     public ResponseEntity<String> tratarProdutoException(ProdutoException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
+
+    @ExceptionHandler(PedidoException.class)
+    public ResponseEntity<String> tratarPedidoException(PedidoException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 }
