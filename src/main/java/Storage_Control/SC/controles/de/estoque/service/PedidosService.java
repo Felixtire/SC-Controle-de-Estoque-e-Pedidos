@@ -2,6 +2,7 @@ package Storage_Control.SC.controles.de.estoque.service;
 
 import Storage_Control.SC.controles.de.estoque.dto.entrada.CarrinhoDeCompras;
 import Storage_Control.SC.controles.de.estoque.dto.entrada.ItemProdutoDto;
+import Storage_Control.SC.controles.de.estoque.dto.saida.PedidosListadosDto;
 import Storage_Control.SC.controles.de.estoque.entity.ItemPedido;
 import Storage_Control.SC.controles.de.estoque.entity.Pedido;
 import Storage_Control.SC.controles.de.estoque.entity.StatusPedido;
@@ -12,12 +13,15 @@ import Storage_Control.SC.controles.de.estoque.repository.PedidoRepository;
 import Storage_Control.SC.controles.de.estoque.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
@@ -77,11 +81,26 @@ public class PedidosService {
     }
 
 
+    public Page<PedidosListadosDto> listarPedidos(Pageable pageable) {
+
+        return pedidoRepository.findAll(pageable)
+                .map(PedidosListadosDto :: new);
+
+    }
+
+    public PedidosListadosDto listarPedidoPorId(Long id) {
+
+        var pedido = pedidoRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Pedido não encontrado com id: " + id));
 
 
+        return new PedidosListadosDto(pedido);
+    }
 
+    public void deletarPedido(Long id) {
+        var pedido = pedidoRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Pedido não encontrado com id: " + id));
 
-
-
-
+        pedidoRepository.delete(pedido);
+    }
 }

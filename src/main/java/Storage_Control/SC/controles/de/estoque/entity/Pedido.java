@@ -1,6 +1,7 @@
 package Storage_Control.SC.controles.de.estoque.entity;
 
 
+import Storage_Control.SC.controles.de.estoque.dto.saida.PedidosListadosDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,5 +38,9 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens;
 
+
+
     }
+
+
 
