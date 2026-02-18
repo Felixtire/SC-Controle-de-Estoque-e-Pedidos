@@ -69,7 +69,6 @@ public class PedidosService {
           validations.forEach(v-> v.validarPedido(item));
 
 
-
         }
         pedido.setItens(itens);
 
@@ -102,5 +101,33 @@ public class PedidosService {
                 .orElseThrow(()-> new RuntimeException("Pedido não encontrado com id: " + id));
 
         pedidoRepository.delete(pedido);
+    }
+
+    @Transactional
+    public Pedido pagarPedido(Long id) {
+        var pedido = pedidoRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Pedido não encontrado com id: " + id));
+
+        if (pedido.getStatus() != StatusPedido.PAGO && pedido.getStatus() != StatusPedido.CANCELADO) {
+            pedido.setStatus(StatusPedido.PAGO);
+        } else {
+            throw new RuntimeException("Pedido já está pago ou cancelado");
+        }
+
+        return pedidoRepository.save(pedido);
+
+    }
+
+    public String cancelarPedido(Long id) {
+        var pedido = pedidoRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Pedido não encontrado com id: " + id));
+
+        if (pedido.getStatus() != StatusPedido.CANCELADO && pedido.getStatus() != StatusPedido.PAGO) {
+            pedido.setStatus(StatusPedido.CANCELADO);
+            pedidoRepository.save(pedido);
+            return "Pedido cancelado com sucesso";
+        } else {
+            throw new RuntimeException("Pedido já está pago ou cancelado");
+        }
     }
 }

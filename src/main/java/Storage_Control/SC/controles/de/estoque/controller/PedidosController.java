@@ -2,6 +2,7 @@ package Storage_Control.SC.controles.de.estoque.controller;
 
 import Storage_Control.SC.controles.de.estoque.dto.entrada.CarrinhoDeCompras;
 import Storage_Control.SC.controles.de.estoque.service.PedidosService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -23,7 +24,12 @@ public class PedidosController {
 
         return ResponseEntity.created(uri).body(pedido);
 
+    }
 
+    @PostMapping("/pagar")
+    public ResponseEntity pagarPedido(@RequestParam Long id){
+        var pedido = pedidosService.pagarPedido(id);
+        return ResponseEntity.ok(pedido);
     }
 
     @GetMapping
@@ -35,6 +41,12 @@ public class PedidosController {
     @GetMapping("/{id}")
     public ResponseEntity listarPedidosPorId(@RequestParam Long id){
         var pedido = pedidosService.listarPedidoPorId(id);
+        return ResponseEntity.ok(pedido);
+    }
+
+    @DeleteMapping("/cancelar")
+    public ResponseEntity cancelarPedido(@RequestParam Long id){
+        var pedido = pedidosService.cancelarPedido(id);
         return ResponseEntity.ok(pedido);
     }
 
