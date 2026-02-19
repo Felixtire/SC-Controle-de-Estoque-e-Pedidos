@@ -114,20 +114,44 @@ public class PedidosService {
             throw new RuntimeException("Pedido já está pago ou cancelado");
         }
 
+
         return pedidoRepository.save(pedido);
 
     }
 
-    public String cancelarPedido(Long id) {
+    public void cancelarPedido(Long id) {
         var pedido = pedidoRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Pedido não encontrado com id: " + id));
 
+
+
+
         if (pedido.getStatus() != StatusPedido.CANCELADO && pedido.getStatus() != StatusPedido.PAGO) {
             pedido.setStatus(StatusPedido.CANCELADO);
+
+            pedido.getItens().stream().forEach(itemPedido -> {
+                var produto = itemPedido.getProduto();
+                var quantidade = itemPedido.getQuantidade();
+                reporEstoque(produto, quantidade);
+            });
             pedidoRepository.save(pedido);
-            return "Pedido cancelado com sucesso";
+
         } else {
             throw new RuntimeException("Pedido já está pago ou cancelado");
         }
+
+
+
+    }
+    @Transactional
+    private Produto reporEstoque(Produto produto, int quantidade){
+        var produtoAtualizado = produtoRepository.findByNomeIgnoreCase(produto.getNome()).orElseThrow(() -> new RuntimeException("Produto não encontrado: " + produto.getNome()));
+
+        var estoque = produtoAtualizado.getEstoque();
+        var novoEstoque = estoque + quantidade;
+        produtoAtualizado.setEstoque(novoEstoque);
+
+        return produtoRepository.save(produtoAtualizado);
+
     }
 }

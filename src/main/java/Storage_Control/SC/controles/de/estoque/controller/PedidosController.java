@@ -46,8 +46,8 @@ public class PedidosController {
 
     @DeleteMapping("/cancelar")
     public ResponseEntity cancelarPedido(@RequestParam Long id){
-        var pedido = pedidosService.cancelarPedido(id);
-        return ResponseEntity.ok(pedido);
+        pedidosService.cancelarPedido(id);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping
