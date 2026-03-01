@@ -3,9 +3,11 @@ package Storage_Control.SC.controles.de.estoque.service;
 import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosAtualizarProduto;
 import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosAtualizarProdutoCompleto;
 import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosCadastroProduto;
-import Storage_Control.SC.controles.de.estoque.dto.saida.ProdutosListadosDto;
+import Storage_Control.SC.controles.de.estoque.dto.saida.produtos.ListaDeProdutosDto;
+import Storage_Control.SC.controles.de.estoque.dto.saida.produtos.ProdutosAllInfoDto;
+import Storage_Control.SC.controles.de.estoque.dto.saida.produtos.ProdutosListadosDto;
 import Storage_Control.SC.controles.de.estoque.entity.produto.Produto;
-import Storage_Control.SC.controles.de.estoque.entity.produto.validators.produtos.ProdutoValidations;
+import Storage_Control.SC.controles.de.estoque.entity.produto.validators.produtos.*;
 import Storage_Control.SC.controles.de.estoque.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -26,6 +28,16 @@ public class ProdutoService {
     @Autowired
     private List<ProdutoValidations> validations;
 
+    @Autowired
+    private BaixoEstoque baixoEstoque;
+
+    @Autowired
+    private EmEstoque emEstoque;
+
+    @Autowired
+    private TotalProduto totalProduto;
+
+
 
     @Transactional
     public Produto cadastrarProduto(DadosCadastroProduto dados) {
@@ -38,9 +50,22 @@ public class ProdutoService {
     }
 
 
-    public Page<ProdutosListadosDto> listarProdutos(Pageable pageable) {
-        return produtoRepository.findAll(pageable)
+    public ListaDeProdutosDto listarProdutos(Pageable pageable) {
+        var lista = produtoRepository.findAll(pageable)
                 .map(ProdutosListadosDto::new);
+
+
+
+        var baixo = baixoEstoque.infoProduto();
+        var emEstoqueQtd = emEstoque.infoProduto();
+        var total = totalProduto.infoProduto();
+
+        ProdutosAllInfoDto produtosAllInfoDto = new ProdutosAllInfoDto(baixo,emEstoqueQtd,total);
+
+        return new ListaDeProdutosDto(produtosAllInfoDto, lista);
+
+
+
 
 
     }
@@ -102,15 +127,13 @@ public class ProdutoService {
         produtoRepository.deleteById(produto.getId());
     }
 
-    public ProdutosListadosDto listarPorId(Long id) {
+    public Produto listarPorNome(String nome) {
 
-        var produto =  produtoRepository.findById(id);
 
-        return produto
-                .stream()
-                .map(ProdutosListadosDto :: new)
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+        var produto =  produtoRepository.findByNomeContainingIgnoreCase(nome.trim()).orElseThrow(()->new RuntimeException("Produto não encontrado"));
+
+        return produto;
+
 
 
     }

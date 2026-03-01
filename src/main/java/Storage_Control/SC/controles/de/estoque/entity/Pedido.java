@@ -1,18 +1,14 @@
 package Storage_Control.SC.controles.de.estoque.entity;
 
 
-import Storage_Control.SC.controles.de.estoque.dto.saida.PedidosListadosDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.jpa.boot.spi.Bootstrap;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity(name = "pedido")

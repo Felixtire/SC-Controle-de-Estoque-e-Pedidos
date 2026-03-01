@@ -11,7 +11,7 @@ public class ScControlesDeEstoqueApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(ScControlesDeEstoqueApplication.class, args);
-        log.info("##########Aplicação de Controle de Estoque iniciada com sucesso!##########");
+        log.info("########## Aplicação de Controle de Estoque iniciada com sucesso! ##########");
 	}
 
 }

@@ -3,7 +3,8 @@ package Storage_Control.SC.controles.de.estoque.controller;
 import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosAtualizarProduto;
 import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosAtualizarProdutoCompleto;
 import Storage_Control.SC.controles.de.estoque.dto.entrada.DadosCadastroProduto;
-import Storage_Control.SC.controles.de.estoque.dto.saida.ProdutosListadosDto;
+import Storage_Control.SC.controles.de.estoque.dto.saida.produtos.ListaDeProdutosDto;
+import Storage_Control.SC.controles.de.estoque.dto.saida.produtos.ProdutosListadosDto;
 import Storage_Control.SC.controles.de.estoque.service.ProdutoService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -34,7 +35,7 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProdutosListadosDto>> listarProdutos(@PageableDefault(
+    public ResponseEntity<ListaDeProdutosDto> listarProdutos(@PageableDefault(
             page = 0,
             size = 10,
             sort = "nome",
@@ -44,9 +45,9 @@ public class ProdutoController {
         return ResponseEntity.ok(page);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProdutosListadosDto> listarPorId(@PathVariable Long id){
-        var produto = produtoService.listarPorId(id);
+    @GetMapping("/{nome}")
+    public ResponseEntity listarPorNome(@RequestParam String nome){
+        var produto = produtoService.listarPorNome(nome);
         return ResponseEntity.ok(produto);
     }
 

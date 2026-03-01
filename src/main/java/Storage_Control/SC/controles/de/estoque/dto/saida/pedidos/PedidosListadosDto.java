@@ -1,4 +1,4 @@
-package Storage_Control.SC.controles.de.estoque.dto.saida;
+package Storage_Control.SC.controles.de.estoque.dto.saida.pedidos;
 
 import Storage_Control.SC.controles.de.estoque.entity.Pedido;
 import Storage_Control.SC.controles.de.estoque.entity.StatusPedido;
